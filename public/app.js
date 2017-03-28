@@ -32,4 +32,4 @@ function updateDom (err, data) {
   }
 }
 
-request('/users', updateDom);
+// request('/users', updateDom);

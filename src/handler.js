@@ -1,7 +1,7 @@
 const http = require('http');
 const users = require('./static.js');
 const fs = require('fs');
-const getData = require('./getdata.js');
+const data = require('./getdata.js');
 
 const handler = (request, response) => {
   const endpoint = request.url.split('/')[1];
@@ -16,9 +16,9 @@ const handler = (request, response) => {
         response.end(file);
       }
     });
+
   } else if (endpoint === "users") {
-    // TASK 1: replace the 3 lines below below with your own function that gets data from your database
-    getData((err,res) => {
+    data.getData((err,res) => {
       if (err) {
         throw err;
       }
@@ -27,10 +27,21 @@ const handler = (request, response) => {
         'content-type':'application/json'
       });
       response.end(dynamicData);
-    })
-    // const output = JSON.stringify(users);
-    // response.writeHead(200, {"Content-Type": "application/json"});
-    // response.end(output);
+    });
+
+  } else if (endpoint === 'create-user')  {
+    let body = '';
+    request.on('data', (chunk) => {
+      body += chunk;
+    });
+    request.on('end', () => {
+      // console.log(body);
+      data.setData(body, (err, res) => {
+
+      })
+    });
+
+
   } else {
     const fileName = request.url;
     const fileType = request.url.split(".")[1];
