@@ -8,7 +8,7 @@ if (!process.env.DB_URL) {
 }
 
 const params = url.parse(process.env.DB_URL);
-const [username, password] = params.auth.split(':');
+const [password, username] = params.auth.split(':');
 
 const options = {
   host: params.hostname,
@@ -21,4 +21,3 @@ const options = {
   options.ssl =  ( options.host !== 'localhost' )
 
 module.exports = new Pool(options);
-

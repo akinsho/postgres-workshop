@@ -22,7 +22,7 @@ function updateDom (err, data) {
     users.forEach(function(user) {
       var row = document.createElement("tr");
       var name = document.createElement("td");
-      name.innerHTML = user.name;
+      name.innerHTML = user.username;
       row.appendChild(name);
       var location = document.createElement("td");
       location.innerHTML = user.location;
