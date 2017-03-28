@@ -1,7 +1,7 @@
 const http = require('http');
 const users = require('./static.js');
 const fs = require('fs');
-const data = require('./getdata.js');
+const data = require('./data.js');
 
 const handler = (request, response) => {
   const endpoint = request.url.split('/')[1];
@@ -35,10 +35,11 @@ const handler = (request, response) => {
       body += chunk;
     });
     request.on('end', () => {
-      // console.log(body);
       data.setData(body, (err, res) => {
-
-      })
+        if (err) console.log(err);
+        response.writeHead(301, {'Location':'/'});
+        response.end();
+      });
     });
 
 
